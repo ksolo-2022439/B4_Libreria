@@ -30,11 +30,12 @@ CREATE TABLE Pedido (
 );
  
 CREATE TABLE DetallePedido (
+	idDetallePedido INT AUTO_INCREMENT NOT NULL,
     idPedido INT NOT NULL,
     idLibro INT NOT NULL,
     cantidad INT NOT NULL,
     precioUnitario DECIMAL(10, 2) NOT NULL,
-    CONSTRAINT pk_detalle_pedido PRIMARY KEY (idPedido, idLibro),
+    CONSTRAINT pk_detallepedido PRIMARY KEY (idDetallePedido),
     CONSTRAINT fk_detalle_pedido FOREIGN KEY (idPedido) REFERENCES Pedido(idPedido),
     CONSTRAINT fk_detalle_libro FOREIGN KEY (idLibro) REFERENCES Libro(idLibro)
 );
