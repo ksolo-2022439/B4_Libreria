@@ -6,6 +6,7 @@ CREATE TABLE Libro (
     idLibro INT AUTO_INCREMENT NOT NULL,
     titulo VARCHAR(100) NOT NULL,
     autor VARCHAR(100) NOT NULL,
+    categoria VARCHAR(32) NOT NULL,
     precio DECIMAL(10, 2) NOT NULL,
     stock INT NOT NULL,
     CONSTRAINT pk_libro PRIMARY KEY (idLibro)
@@ -30,11 +31,12 @@ CREATE TABLE Pedido (
 );
  
 CREATE TABLE DetallePedido (
+    idDetallePedido INT AUTO_INCREMENT NOT NULL,
     idPedido INT NOT NULL,
     idLibro INT NOT NULL,
     cantidad INT NOT NULL,
     precioUnitario DECIMAL(10, 2) NOT NULL,
-    CONSTRAINT pk_detalle_pedido PRIMARY KEY (idPedido, idLibro),
+    CONSTRAINT pk_detallepedido PRIMARY KEY (idDetallePedido),
     CONSTRAINT fk_detalle_pedido FOREIGN KEY (idPedido) REFERENCES Pedido(idPedido),
     CONSTRAINT fk_detalle_libro FOREIGN KEY (idLibro) REFERENCES Libro(idLibro)
 );
