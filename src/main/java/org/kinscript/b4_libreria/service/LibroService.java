@@ -1,8 +1,8 @@
 package org.kinscript.b4_libreria.service;
 
 import org.kinscript.b4_libreria.repository.LibrosRepository;
-import org.kinscript.registroCliente.entity.Libro;
-import org.kinscript.registroCliente.repository.LibrosRepository;
+import org.kinscript.b4_libreria.entity.Libro;
+import org.kinscript.b4_libreria.repository.LibrosRepository;
 import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

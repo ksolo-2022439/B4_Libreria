@@ -1,6 +1,6 @@
 package org.kinscript.b4_libreria.service;
 
-import org.kinscript.registroCliente.entity.Libro;
+import org.kinscript.b4_libreria.entity.Libro;
 import java.util.List;
 
 public interface iLibrosService {

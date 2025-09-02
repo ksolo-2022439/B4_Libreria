@@ -21,6 +21,7 @@ public class Libro {
     private Integer idLibro;
     private String titulo;
     private String autor;
+    private String categoria;
     private String urlPortada;
     private String descripcion;
     private Double precio;

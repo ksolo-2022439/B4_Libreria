@@ -6,6 +6,7 @@ CREATE TABLE Libro (
     idLibro INT AUTO_INCREMENT NOT NULL,
     titulo VARCHAR(100) NOT NULL,
     autor VARCHAR(100) NOT NULL,
+    categoria VARCHAR(32) NOT NULL,
     precio DECIMAL(10, 2) NOT NULL,
     stock INT NOT NULL,
     CONSTRAINT pk_libro PRIMARY KEY (idLibro)
