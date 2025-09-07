@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>KinalHub - Iniciar Sesión</title>
+    <link rel="stylesheet" href="styles/iniciarSesion.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css"/>
+</head>
+
+<body>
+<div class="floating-books">
+    <div class="floating-book">📚</div>
+    <div class="floating-book">📖</div>
+    <div class="floating-book">📘</div>
+    <div class="floating-book">📕</div>
+</div>
+
+<div class="back-home">
+    <a href="paginaPrincipal.xhtml">
+        <span>←</span>
+        Volver al inicio
+    </a>
+</div>
+
+<div class="login-container flex align-items-center justify-content-center p-4"/>
+<div class="login-card"/>
+<div class="logo-section">
+    <a href="paginaPrincipal.xhtml" class="logo">📚 KinalHub</a>
+</div>
+
+<h1 class="login-title">Iniciar Sesión</h1>
+<p class="login-subtitle">Accede a tu cuenta para continuar</p>
+
+<form>
+    <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-input" placeholder="tu@email.com" required/>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">Contraseña</label>
+        <input type="password" class="form-input" placeholder="••••••••" required/>
+    </div>
+
+    <div class="forgot-password">
+        <a href="recuperar-password.html">¿Olvidaste tu contraseña?</a>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Iniciar Sesión
+    </button>
+</form>
+
+<div class="divider">
+    <span>o</span>
+</div>
+
+<div class="flex justify-content-center">
+    <a href="crearCuenta.xhtml" class="btn btn-secondary">
+        Crear Nueva Cuenta
+    </a>
+</div>
+
+<div class="register-link">
+    ¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a>
+</div>
+
+</body>
+
+</html>

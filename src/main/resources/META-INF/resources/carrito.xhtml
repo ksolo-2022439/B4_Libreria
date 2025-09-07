@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>KinalHub - Carrito de Compras</title>
+    <link rel="stylesheet" href="styles/carrito.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css"/>
+</head>
+
+<body>
+<header class="header">
+    <div class="nav-container flex justify-content-between align-items-center">
+        <a href="paginaPrincipal.xhtml" class="logo">📚 KinalHub</a>
+        <div class="nav-buttons">
+            <a href="#" class="btn btn-back">← Seguir Comprando</a>
+        </div>
+    </div>
+</header>
+
+<div class="cart-container">
+<h1 class="cart-title">Mi Carrito de Compras</h1>
+
+<!-- Este es el ejemplo con productos en el carrito para tener una idea de como se miraria-->
+<div class="cart-content">
+    <div class="cart-items">
+        <div class="cart-item">
+            <div class="item-image">📖</div>
+            <div class="item-details">
+                <div class="item-title">El Principito</div>
+                <div class="item-author">Antoine de Saint-Exupéry</div>
+                <div class="item-price">Q30.00</div>
+            </div>
+            <div class="item-mobile-row">
+                <div class="quantity-controls">
+                    <button class="quantity-btn">-</button>
+                    <span class="quantity-display">2</span>
+                    <button class="quantity-btn">+</button>
+                </div>
+                <button class="remove-btn">🗑</button>
+            </div>
+        </div>
+
+        <div class="cart-item">
+            <div class="item-image">📚</div>
+            <div class="item-details">
+                <div class="item-title">Cien Años de Soledad</div>
+                <div class="item-author">Gabriel García Márquez</div>
+                <div class="item-price">Q200.00</div>
+            </div>
+            <div class="item-mobile-row">
+                <div class="quantity-controls">
+                    <button class="quantity-btn">-</button>
+                    <span class="quantity-display">1</span>
+                    <button class="quantity-btn">+</button>
+                </div>
+                <button class="remove-btn">🗑</button>
+            </div>
+        </div>
+
+        <div class="cart-item">
+            <div class="item-image">📘</div>
+            <div class="item-details">
+                <div class="item-title">Don Quijote de la Mancha</div>
+                <div class="item-author">Miguel de Cervantes</div>
+                <div class="item-price">Q260.00</div>
+            </div>
+            <div class="item-mobile-row">
+                <div class="quantity-controls">
+                    <button class="quantity-btn">-</button>
+                    <span class="quantity-display">1</span>
+                    <button class="quantity-btn">+</button>
+                </div>
+                <button class="remove-btn">🗑</button>
+            </div>
+        </div>
+
+        <div class="cart-item">
+            <div class="item-image">📕</div>
+            <div class="item-details">
+                <div class="item-title">1984</div>
+                <div class="item-author">George Orwell</div>
+                <div class="item-price">Q60.00</div>
+            </div>
+            <div class="item-mobile-row">
+                <div class="quantity-controls">
+                    <button class="quantity-btn">-</button>
+                    <span class="quantity-display">3</span>
+                    <button class="quantity-btn">+</button>
+                </div>
+                <button class="remove-btn">🗑</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="checkout-section">
+        <h3 class="checkout-title">Resumen del Pedido</h3>
+
+        <div class="summary-row">
+            <span class="summary-label">Subtotal (7 artículos):</span>
+            <span class="summary-value">Q740.00</span>
+        </div>
+
+        <div class="shipping-options">
+            <div class="shipping-title">Opciones de Envío:</div>
+
+            <label class="shipping-option">
+                <input type="radio" name="shipping" value="standard" checked/>
+                <div class="shipping-info">
+                    <div class="shipping-name">Envío Estándar</div>
+                    <div class="shipping-time">5-7 días hábiles</div>
+                </div>
+                <div class="shipping-price">Q25.00</div>
+            </label>
+
+            <label class="shipping-option">
+                <input type="radio" name="shipping" value="express"/>
+                <div class="shipping-info">
+                    <div class="shipping-name">Envío Express</div>
+                    <div class="shipping-time">2-3 días hábiles</div>
+                </div>
+                <div class="shipping-price">Q50.00</div>
+            </label>
+
+            <label class="shipping-option">
+                <input type="radio" name="shipping" value="pickup"/>
+                <div class="shipping-info">
+                    <div class="shipping-name">Recoger en Tienda</div>
+                    <div class="shipping-time">Disponible hoy</div>
+                </div>
+                <div class="shipping-price">Gratis</div>
+            </label>
+        </div>
+
+        <div class="summary-row">
+            <span class="summary-label">Envío:</span>
+            <span class="summary-value">Q25.00</span>
+        </div>
+
+        <div class="summary-row">
+            <span class="summary-label">IVA (12%):</span>
+            <span class="summary-value">Q91.80</span>
+        </div>
+
+        <div class="promo-code">
+            <input type="text" class="promo-input" placeholder="Código promocional"/>
+            <button class="btn btn-promo">Aplicar Código</button>
+        </div>
+
+        <div class="summary-row total">
+            <span class="summary-label">Total:</span>
+            <span class="summary-value">Q856.80</span>
+        </div>
+
+        <button class="btn btn-checkout">
+            Proceder al Pago 🛒
+        </button>
+
+        <div class="flex justify-content-center">
+            <a href="#" class="btn btn-continue">
+                Continuar Comprando
+            </a>
+        </div>
+    </div>
+
+    <!-- En la parte de arriba hice un ejemplo de como se miraria el carrito lleno de productos,
+        esto que esta comentado es como seria el carrito si estuviera vacio sin nada, esto se va a ir ajustando cuando se implemente la logica para
+        los productos que valla a ingresar el usuario, actualmente solo esta de muestra como se tendria que ver-->
+    <!--
+    <div class="empty-cart">
+        <div class="empty-cart-icon">🛒</div>
+            <h3>Tu carrito está vacío</h3>
+            <p>Agrega algunos libros increíbles a tu carrito para comenzar.</p>
+            <a href="#" class="btn btn-checkout" style="display: inline-block; margin-top: 1rem;">
+                Explorar Catálogo
+            </a>
+    </div>
+-->
+</div>
+</body>
+
+</html>

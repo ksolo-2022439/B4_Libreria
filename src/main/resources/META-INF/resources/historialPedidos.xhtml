@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KinalHub - Historial de Pedidos</title>
+    <link rel="stylesheet" href="styles/historialPedidos.css" />
+    <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css"/>
+
+</head>
+
+<body>
+<header class="header">
+    <div class="nav-container flex justify-content-between align-items-center">
+        <a href="paginaPrincipal.xhtml" class="logo">📚 KinalHub</a>
+        <div class="nav-buttons">
+            <a href="#" class="btn btn-back">← Volver al Catalogo</a>
+        </div>
+    </div>
+</header>
+
+<div class="history-container">
+    <h1 class="history-title">Historial de Pedidos</h1>
+    <p class="history-subtitle">Aquí puedes ver todos tus pedidos anteriores y realizar seguimiento</p>
+
+    <div class="filter-section">
+        <div class="filter-row">
+            <div class="filter-group">
+                <label class="filter-label">Estado del Pedido</label>
+                <select class="filter-select">
+                    <option value="">Todos los estados</option>
+                    <option value="completed">Completado</option>
+                    <option value="processing">Procesando</option>
+                    <option value="shipped">Enviado</option>
+                    <option value="cancelled">Cancelado</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label class="filter-label">Desde</label>
+                <input type="date" class="filter-input"/>
+            </div>
+            <div class="filter-group">
+                <label class="filter-label">Hasta</label>
+                <input type="date" class="filter-input"/>
+            </div>
+            <div class="filter-group">
+                <label class="filter-label">Buscar</label>
+                <input type="text" class="filter-input" placeholder="Número de pedido o libro..."/>
+            </div>
+            <button class="btn-filter">Filtrar</button>
+        </div>
+    </div>
+
+    <!-- Ejemplo de pedidos -->
+    <div class="order-card">
+        <div class="order-header">
+            <div class="order-info">
+                <div class="order-number">Pedido #KH-2025-001234</div>
+                <div class="order-date">Realizado el 28 de enero, 2025</div>
+            </div>
+            <div class="order-status status-completed">Completado</div>
+            <div class="order-total">Q856.80</div>
+        </div>
+        <div class="order-body">
+            <div class="shipping-info">
+                <div class="shipping-title">📦 Información de Envío</div>
+                <div class="shipping-details">
+                    Entregado el 2 de febrero, 2025<br/>
+                    Dirección: Zona 10, Ciudad de Guatemala<br/>
+                    Método: Envío Estándar
+                </div>
+            </div>
+
+            <div class="order-items">
+                <div class="order-item">
+                    <div class="item-image">📖</div>
+                    <div class="item-details">
+                        <div class="item-title">El Principito</div>
+                        <div class="item-author">Antoine de Saint-Exupéry</div>
+                        <div class="item-quantity">Cantidad: 2</div>
+                    </div>
+                    <div class="item-price">Q60.00</div>
+                </div>
+                <div class="order-item">
+                    <div class="item-image">📚</div>
+                    <div class="item-details">
+                        <div class="item-title">Cien Años de Soledad</div>
+                        <div class="item-author">Gabriel García Márquez</div>
+                        <div class="item-quantity">Cantidad: 1</div>
+                    </div>
+                    <div class="item-price">Q200.00</div>
+                </div>
+                <div class="order-item">
+                    <div class="item-image">📕</div>
+                    <div class="item-details">
+                        <div class="item-title">1984</div>
+                        <div class="item-author">George Orwell</div>
+                        <div class="item-quantity">Cantidad: 3</div>
+                    </div>
+                    <div class="item-price">Q180.00</div>
+                </div>
+            </div>
+
+            <div class="order-summary">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span>Q740.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Envío:</span>
+                    <span>Q25.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>IVA:</span>
+                    <span>Q91.80</span>
+                </div>
+                <div class="summary-row">
+                    <span>Total:</span>
+                    <span>Q856.80</span>
+                </div>
+            </div>
+
+            <div class="order-actions">
+                <a href="#" class="btn btn-primary">Descargar Factura</a>
+                <a href="carrito.xhtml" class="btn btn-secondary">Volver a Comprar</a>
+                <a href="carrito.xhtml" class="btn btn-outline">Ver Detalles</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="order-card">
+        <div class="order-header">
+            <div class="order-info">
+                <div class="order-number">Pedido #KH-2025-001156</div>
+                <div class="order-date">Realizado el 15 de enero, 2025</div>
+            </div>
+            <div class="order-status status-shipped">Enviado</div>
+            <div class="order-total">Q425.50</div>
+        </div>
+        <div class="order-body">
+            <div class="shipping-info">
+                <div class="shipping-title">🚚 Información de Envío</div>
+                <div class="shipping-details">
+                    En tránsito - Llegada estimada: 5 de febrero, 2025<br/>
+                    Dirección: Antigua Guatemala, Sacatepéquez<br/>
+                    Método: Envío Express<br/>
+                    Código de seguimiento: GT789456123
+                </div>
+            </div>
+
+            <div class="order-items">
+                <div class="order-item">
+                    <div class="item-image">📘</div>
+                    <div class="item-details">
+                        <div class="item-title">Don Quijote de la Mancha</div>
+                        <div class="item-author">Miguel de Cervantes</div>
+                        <div class="item-quantity">Cantidad: 1</div>
+                    </div>
+                    <div class="item-price">Q260.00</div>
+                </div>
+                <div class="order-item">
+                    <div class="item-image">📗</div>
+                    <div class="item-details">
+                        <div class="item-title">Orgullo y Prejuicio</div>
+                        <div class="item-author">Jane Austen</div>
+                        <div class="item-quantity">Cantidad: 1</div>
+                    </div>
+                    <div class="item-price">Q120.00</div>
+                </div>
+            </div>
+
+            <div class="order-summary">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span>Q380.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Envío:</span>
+                    <span>Q50.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>IVA:</span>
+                    <span>-Q4.50</span>
+                </div>
+                <div class="summary-row">
+                    <span>Total:</span>
+                    <span>Q425.50</span>
+                </div>
+            </div>
+
+            <div class="order-actions">
+                <a  class="btn btn-primary">Rastrear Envío</a>
+                <a  class="btn btn-outline">Cancelar Pedido</a>
+                <a href="carrito.xhtml" class="btn btn-outline">Ver Detalles</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="order-card">
+        <div class="order-header">
+            <div class="order-info">
+                <div class="order-number">Pedido #KH-2024-009876</div>
+                <div class="order-date">Realizado el 20 de diciembre, 2024</div>
+            </div>
+            <div class="order-status status-processing">Procesando</div>
+            <div class="order-total">Q195.00</div>
+        </div>
+        <div class="order-body">
+            <div class="shipping-info">
+                <div class="shipping-title">⏳ Información de Envío</div>
+                <div class="shipping-details">
+                    Tu pedido está siendo preparado<br/>
+                    Dirección: Quetzaltenango, Guatemala<br/>
+                    Método: Recoger en Tienda<br/>
+                    Te notificaremos cuando esté listo
+                </div>
+            </div>
+
+            <div class="order-items">
+                <div class="order-item">
+                    <div class="item-image">📙</div>
+                    <div class="item-details">
+                        <div class="item-title">El Alquimista</div>
+                        <div class="item-author">Paulo Coelho</div>
+                        <div class="item-quantity">Cantidad: 2</div>
+                    </div>
+                    <div class="item-price">Q150.00</div>
+                </div>
+            </div>
+
+            <div class="order-summary">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span>Q150.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Envío:</span>
+                    <span>Q0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>IVA:</span>
+                    <span>Q45.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Total:</span>
+                    <span>Q195.00</span>
+                </div>
+            </div>
+
+            <div class="order-actions">
+                <a class="btn btn-primary">Cancelar Pedido</a>
+                <a href="carrito.xhtml" class="btn btn-outline">Ver Detalles</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ejemplo de historial vacío -->
+    <!--
+    <div class="empty-history">
+        <div class="empty-history-icon">📋</div>
+        <h3>No tienes pedidos aún</h3>
+        <p>Cuando realices tu primera compra, aparecerá aquí para que puedas hacer seguimiento.</p>
+        <a href="catalogo.html" class="btn btn-primary" style="display: inline-block; margin-top: 1rem;">
+            Explorar Catálogo
+        </a>
+    </div>
+    -->
+</div>
+</body>
+
+</html>

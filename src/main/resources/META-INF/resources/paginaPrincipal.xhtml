@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KinalHub - Tu Librería Online</title>
+    <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css"/>
+    <link rel="stylesheet" href="styles/paginaPrincipal.css" />
+</head>
+
+<body>
+<div class="floating-books">
+    <div class="floating-book">📚</div>
+    <div class="floating-book">📖</div>
+    <div class="floating-book">📘</div>
+    <div class="floating-book">📕</div>
+</div>
+
+<header class="header">
+    <div class="nav-container flex justify-content-between align-items-center">
+        <a href="#" class="logo" style="text-decoration: none; color: white;">📚 KinalHub</a>
+        <div class="nav-buttons flex flex-column md:flex-row gap-3">
+            <a href="inicioDeSesion.xhtml" class="btn btn-login">Iniciar Sesión</a>
+            <a href="registrarse.xhtml" class="btn btn-register">Registrarse</a>
+        </div>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="hero-content">
+        <h1>Descubre tu próxima gran lectura</h1>
+        <p>Miles de libros esperándote. Desde bestsellers hasta joyas ocultas, encuentra tu mundo perfecto en cada
+            página.</p>
+        <div class="hero-buttons flex gap-3 justify-content-center flex-wrap animation-delay-600">
+            <a href="catalogo.xhtml" class="btn btn-hero btn-primary">Explorar Catálogo</a>
+            <a href="ofertas.xhtml" class="btn btn-hero btn-secondary">Ver Ofertas</a>
+        </div>
+    </div>
+</section>
+
+<section class="featured-section py-8">
+    <div class="container mx-auto px-4 lg:px-6">
+        <h2 class="section-title text-center text-4xl mb-6">Libros Destacados</h2>
+        <div class="carousel-container">
+            <div class="carousel">
+                <div class="book-card">
+                    <div class="book-image">📖</div>
+                    <div class="book-info">
+                        <div class="book-title">El Principito</div>
+                        <div class="book-author">Antoine de Saint-Exupéry</div>
+                        <div class="book-price">Q30.00</div>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">📚</div>
+                    <div class="book-info">
+                        <div class="book-title">Cien Años de Soledad</div>
+                        <div class="book-author">Gabriel García Márquez</div>
+                        <div class="book-price">Q200.00</div>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">📘</div>
+                    <div class="book-info">
+                        <div class="book-title">Don Quijote</div>
+                        <div class="book-author">Miguel de Cervantes</div>
+                        <div class="book-price">Q260.00</div>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">📕</div>
+                    <div class="book-info">
+                        <div class="book-title">1984</div>
+                        <div class="book-author">George Orwell</div>
+                        <div class="book-price">Q60.00</div>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">📗</div>
+                    <div class="book-info">
+                        <div class="book-title">Orgullo y Prejuicio</div>
+                        <div class="book-author">Jane Austen</div>
+                        <div class="book-price">Q409.99</div>
+                    </div>
+                </div>
+
+                <div class="book-card">
+                    <div class="book-image">📖</div>
+                    <div class="book-info">
+                        <div class="book-title">El Principito</div>
+                        <div class="book-author">Antoine de Saint-Exupéry</div>
+                        <div class="book-price">Q30.00</div>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">📚</div>
+                    <div class="book-info">
+                        <div class="book-title">Cien Años de Soledad</div>
+                        <div class="book-author">Gabriel García Márquez</div>
+                        <div class="book-price">Q200.00</div>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">📘</div>
+                    <div class="book-info">
+                        <div class="book-title">Don Quijote</div>
+                        <div class="book-author">Miguel de Cervantes</div>
+                        <div class="book-price">$260.00</div>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">📕</div>
+                    <div class="book-info">
+                        <div class="book-title">1984</div>
+                        <div class="book-author">George Orwell</div>
+                        <div class="book-price">Q60.00</div>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">📗</div>
+                    <div class="book-info">
+                        <div class="book-title">Orgullo y Prejuicio</div>
+                        <div class="book-author">Jane Austen</div>
+                        <div class="book-price">Q409.99</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="categories-section py-8">
+    <div class="container">
+        <h2 class="section-title text-center text-4xl mb-6">Explora por Categorías</h2>
+        <div class="categories-grid grid grid-nogutter mt-6">
+            <a href="categoriaFiccion.xhtml" class="col-12 sm:col-6 md:col-4 lg:col-2 p-3"
+               style="text-decoration: none;">
+                <div class="category-card h-full">
+                    <div class="category-icon">🏰</div>
+                    <div class="category-name">Ficción</div>
+                </div>
+            </a>
+            <a href="categoriaRomance.xhtml" class="col-12 sm:col-6 md:col-4 lg:col-2 p-3"
+               style="text-decoration: none;">
+                <div class="category-card h-full">
+                    <div class="category-icon">💝</div>
+                    <div class="category-name">Romance</div>
+                </div>
+            </a>
+            <a href="categoriaMisterio.xhtml" class="col-12 sm:col-6 md:col-4 lg:col-2 p-3"
+               style="text-decoration: none;">
+                <div class="category-card h-full">
+                    <div class="category-icon">🔍</div>
+                    <div class="category-name">Misterio</div>
+                </div>
+            </a>
+            <a href="categoriaCiencia.xhtml" class="col-12 sm:col-6 md:col-4 lg:col-2 p-3"
+               style="text-decoration: none;">
+                <div class="category-card h-full">
+                    <div class="category-icon">🔬</div>
+                    <div class="category-name">Ciencia</div>
+                </div>
+            </a>
+            <a href="categoriaHistoria.xhtml" class="col-12 sm:col-6 md:col-4 lg:col-2 p-3"
+               style="text-decoration: none;">
+                <div class="category-card h-full">
+                    <div class="category-icon">🏛️</div>
+                    <div class="category-name">Historia</div>
+                </div>
+            </a>
+            <a href="categoriaInfantil.xhtml" class="col-12 sm:col-6 md:col-4 lg:col-2 p-3"
+               style="text-decoration: none;">
+                <div class="category-card h-full">
+                    <div class="category-icon">🎈</div>
+                    <div class="category-name">Infantil</div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="stats-section py-8">
+    <div class="container">
+        <div class="stats-grid grid text-center">
+            <div class="col-12 sm:col-6 md:col-3 p-3">
+                <div class="stat-item">
+                    <div class="stat-number">50,000+</div>
+                    <div class="stat-label">Libros Disponibles</div>
+                </div>
+            </div>
+            <div class="col-12 sm:col-6 md:col-3 p-3">
+                <div class="stat-item">
+                    <div class="stat-number">5,000+</div>
+                    <div class="stat-label">Autores</div>
+                </div>
+            </div>
+            <div class="col-12 sm:col-6 md:col-3 p-3">
+                <div class="stat-item">
+                    <div class="stat-number">100,000+</div>
+                    <div class="stat-label">Clientes Felices</div>
+                </div>
+            </div>
+            <div class="col-12 sm:col-6 md:col-3 p-3">
+                <div class="stat-item">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Años de Experiencia</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content grid grid-nogutter pb-6">
+            <div class="footer-section col-12 sm:col-6 md:col-3 p-3">
+                <h3>📚 KinalHub</h3>
+                <p>Tu librería online de confianza desde 2010. Descubre miles de títulos y encuentra tu próxima gran
+                    lectura.</p>
+            </div>
+            <div class="footer-section col-12 sm:col-6 md:col-3 p-3">
+                <h3>Categorías</h3>
+                <a href="categoriaFiccion.xhtml">Ficción</a>
+                <a href="categoriaRomance.xhtml">Romance</a>
+                <a href="categoriaMisterio.xhtml">Misterio</a>
+                <a href="categoriaCiencia.xhtml">Ciencia</a>
+                <a href="categoriaHistoria.xhtml">Historia</a>
+                <a href="categoriaInfantil.xhtml">Infantil</a>
+            </div>
+            <div class="footer-section col-12 sm:col-6 md:col-3 p-3">
+                <h3>Ayuda</h3>
+                <a href="contacto.xhtml">Contacto</a>
+                <a href="envios.xhtml">Envíos</a>
+                <a href="devoluciones.xhtml">Devoluciones</a>
+                <a href="faq.xhtml">Preguntas Frecuentes</a>
+                <a href="privacidad.xhtml">Política de Privacidad</a>
+            </div>
+            <div class="footer-section col-12 sm:col-6 md:col-3 p-3">
+                <h3>Síguenos</h3>
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="#">Twitter</a>
+                <a href="#">YouTube</a>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2025 KinalHub. Todos los derechos reservados.</p>
+        </div>
+    </div>
+</footer>
+</body>
+
+</html>

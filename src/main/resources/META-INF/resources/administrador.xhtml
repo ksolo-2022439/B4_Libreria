@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KinalHub - Panel de Administración</title>
+    <link rel="stylesheet" href="styles/administrador.css" />
+    <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css"/>
+</head>
+
+<body>
+<div class="admin-container">
+    <div class="overlay" id="overlay"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="paginaPrincipal.xhtml" class="admin-logo">📚 KinalHub</a>
+            <div class="admin-subtitle">Panel de Administración</div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <div class="nav-section-title">Gestión de Entidades</div>
+                <a href="libro.xhtml" class="nav-item">
+                    <span class="nav-icon">📚</span>
+                    Libros
+                </a>
+                <a href="usuario.xhtml" class="nav-item">
+                    <span class="nav-icon">👥</span>
+                    Usuarios
+                </a>
+                <a href="pedido.xhtml" class="nav-item">
+                    <span class="nav-icon">🛒</span>
+                    Pedidos
+                </a>
+                <a href="detallePedidos.xhtml" class="nav-item">
+                    <span class="nav-icon">📋</span>
+                    Detalle Pedidos
+                </a>
+                <a href="gestionarCookies.xhtml" class="nav-item">
+                    <span class="nav-icon">🍪</span>
+                    Cookies
+                </a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">Cuenta</div>
+                <a href="paginaPrincipal.xhtml" class="nav-item">
+                    <span class="nav-icon">🚪</span>
+                    Cerrar Sesión
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="topbar">
+            <div class="flex align-items-center">
+                <button class="mobile-menu-toggle" id="menuToggle">☰</button>
+                <h1 class="topbar-title">Panel de Gestión</h1>
+            </div>
+
+            <div class="topbar-actions">
+                <div class="user-info">
+                    <div class="user-avatar">AD</div>
+                    <div class="user-details">
+                        <div class="user-name">Administrador</div>
+                        <div class="user-role">Super Admin</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="quick-actions">
+                <h2 class="quick-actions-title">Accesos Rápidos</h2>
+                <div class="actions-grid">
+                    <a href="libro.xhtml" class="action-card">
+                        <span class="action-icon">➕📚</span>
+                        <div class="action-title">Agregar Libro</div>
+                        <div class="action-description">Añadir nuevo libro al catálogo</div>
+                    </a>
+
+                    <a href="usuario.xhtml" class="action-card">
+                        <span class="action-icon">➕👤</span>
+                        <div class="action-title">Agregar Usuario</div>
+                        <div class="action-description">Crear nueva cuenta de usuario</div>
+                    </a>
+
+                    <a href="pedido.xhtml" class="action-card">
+                        <span class="action-icon">➕🛒</span>
+                        <div class="action-title">Crear Pedido</div>
+                        <div class="action-description">Generar pedido manualmente</div>
+                    </a>
+
+                    <a href="gestionarCookies.xhtml" class="action-card">
+                        <span class="action-icon">⚙️🍪</span>
+                        <div class="action-title">Gestionar Cookies</div>
+                        <div class="action-description">Configurar políticas de cookies</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+</body>
+
+</html>
