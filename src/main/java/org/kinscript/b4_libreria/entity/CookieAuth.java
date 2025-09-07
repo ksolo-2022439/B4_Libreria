@@ -3,7 +3,7 @@ package org.kinscript.b4_libreria.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity(name = "CookieAuth")
 
@@ -19,7 +19,7 @@ public class CookieAuth {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idCookie;
     private String token;
-    private LocalDate fechaExpiracion;
+    private LocalDateTime fechaExpiracion;
     @OneToOne
     @JoinColumn(name = "idUsuario")
     private Usuario usuario;

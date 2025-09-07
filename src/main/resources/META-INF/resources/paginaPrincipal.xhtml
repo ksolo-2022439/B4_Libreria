@@ -1,33 +1,46 @@
 <!DOCTYPE html>
-<html lang="es">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<h:head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>KinalHub - Tu Librería Online</title>
     <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css"/>
-    <link rel="stylesheet" href="styles/paginaPrincipal.css" />
-</head>
+    <link rel="stylesheet" href="styles/paginaPrincipal.css"/>
+</h:head>
 
-<body>
-<div class="floating-books">
-    <div class="floating-book">📚</div>
-    <div class="floating-book">📖</div>
-    <div class="floating-book">📘</div>
-    <div class="floating-book">📕</div>
-</div>
-
-<header class="header">
-    <div class="nav-container flex justify-content-between align-items-center">
-        <a href="#" class="logo" style="text-decoration: none; color: white;">📚 KinalHub</a>
-        <div class="nav-buttons flex flex-column md:flex-row gap-3">
-            <a href="inicioDeSesion.xhtml" class="btn btn-login">Iniciar Sesión</a>
-            <a href="registrarse.xhtml" class="btn btn-register">Registrarse</a>
-        </div>
+<h:body>
+    <div class="floating-books">
+        <div class="floating-book">📚</div>
+        <div class="floating-book">📖</div>
     </div>
-</header>
 
-<section class="hero">
+    <header class="header">
+        <div class="nav-container flex justify-content-between align-items-center">
+            <a href="paginaPrincipal.xhtml" class="logo" style="text-decoration: none; color: white;">📚 KinalHub</a>
+
+            <h:form>
+                <h:panelGroup rendered="#{not sessionBean.isLoggedIn()}">
+                    <div class="nav-buttons flex flex-column md:flex-row gap-3">
+                        <a href="iniciarSesion.xhtml" class="btn btn-login">Iniciar Sesión</a>
+                        <a href="crearCuenta.xhtml" class="btn btn-register">Registrarse</a>
+                    </div>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{sessionBean.isLoggedIn()}">
+                    <div class="nav-buttons flex align-items-center gap-3">
+                        <span class="welcome-message">¡Hola, #{sessionBean.usuarioLogueado.nombreUsuario}!</span>
+                        <h:commandButton action="#{sessionBean.logout}" value="Cerrar Sesión" styleClass="btn btn-logout"/>
+                    </div>
+                </h:panelGroup>
+            </h:form>
+        </div>
+    </header>
+
+    <section class="hero">
     <div class="hero-content">
         <h1>Descubre tu próxima gran lectura</h1>
         <p>Miles de libros esperándote. Desde bestsellers hasta joyas ocultas, encuentra tu mundo perfecto en cada
@@ -39,216 +52,54 @@
     </div>
 </section>
 
-<section class="featured-section py-8">
-    <div class="container mx-auto px-4 lg:px-6">
-        <h2 class="section-title text-center text-4xl mb-6">Libros Destacados</h2>
-        <div class="carousel-container">
-            <div class="carousel">
-                <div class="book-card">
-                    <div class="book-image">📖</div>
-                    <div class="book-info">
-                        <div class="book-title">El Principito</div>
-                        <div class="book-author">Antoine de Saint-Exupéry</div>
-                        <div class="book-price">Q30.00</div>
-                    </div>
-                </div>
-                <div class="book-card">
-                    <div class="book-image">📚</div>
-                    <div class="book-info">
-                        <div class="book-title">Cien Años de Soledad</div>
-                        <div class="book-author">Gabriel García Márquez</div>
-                        <div class="book-price">Q200.00</div>
-                    </div>
-                </div>
-                <div class="book-card">
-                    <div class="book-image">📘</div>
-                    <div class="book-info">
-                        <div class="book-title">Don Quijote</div>
-                        <div class="book-author">Miguel de Cervantes</div>
-                        <div class="book-price">Q260.00</div>
-                    </div>
-                </div>
-                <div class="book-card">
-                    <div class="book-image">📕</div>
-                    <div class="book-info">
-                        <div class="book-title">1984</div>
-                        <div class="book-author">George Orwell</div>
-                        <div class="book-price">Q60.00</div>
-                    </div>
-                </div>
-                <div class="book-card">
-                    <div class="book-image">📗</div>
-                    <div class="book-info">
-                        <div class="book-title">Orgullo y Prejuicio</div>
-                        <div class="book-author">Jane Austen</div>
-                        <div class="book-price">Q409.99</div>
-                    </div>
-                </div>
+    <section class="featured-section py-8">
+        <div class="container mx-auto px-4 lg:px-6">
+            <h2 class="section-title text-center text-4xl mb-6">Libros Destacados</h2>
 
-                <div class="book-card">
-                    <div class="book-image">📖</div>
-                    <div class="book-info">
-                        <div class="book-title">El Principito</div>
-                        <div class="book-author">Antoine de Saint-Exupéry</div>
-                        <div class="book-price">Q30.00</div>
+            <h:panelGroup rendered="#{not empty principalBean.librosDestacados}">
+                <div class="carousel-container">
+                    <div class="carousel">
+                        <ui:repeat value="#{principalBean.librosDestacados}" var="libro">
+                            <div class="book-card">
+                                <div class="book-image">📖</div>
+                                <div class="book-info">
+                                    <div class="book-title">#{libro.titulo}</div>
+                                    <div class="book-author">#{libro.autor}</div>
+                                    <div class="book-price">
+                                        <h:outputText value="#{libro.precio}">
+                                            <f:convertNumber type="currency" currencySymbol="Q"/>
+                                        </h:outputText>
+                                    </div>
+                                </div>
+                            </div>
+                        </ui:repeat>
                     </div>
                 </div>
-                <div class="book-card">
-                    <div class="book-image">📚</div>
-                    <div class="book-info">
-                        <div class="book-title">Cien Años de Soledad</div>
-                        <div class="book-author">Gabriel García Márquez</div>
-                        <div class="book-price">Q200.00</div>
-                    </div>
-                </div>
-                <div class="book-card">
-                    <div class="book-image">📘</div>
-                    <div class="book-info">
-                        <div class="book-title">Don Quijote</div>
-                        <div class="book-author">Miguel de Cervantes</div>
-                        <div class="book-price">$260.00</div>
-                    </div>
-                </div>
-                <div class="book-card">
-                    <div class="book-image">📕</div>
-                    <div class="book-info">
-                        <div class="book-title">1984</div>
-                        <div class="book-author">George Orwell</div>
-                        <div class="book-price">Q60.00</div>
-                    </div>
-                </div>
-                <div class="book-card">
-                    <div class="book-image">📗</div>
-                    <div class="book-info">
-                        <div class="book-title">Orgullo y Prejuicio</div>
-                        <div class="book-author">Jane Austen</div>
-                        <div class="book-price">Q409.99</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+            </h:panelGroup>
 
-<section class="categories-section py-8">
-    <div class="container">
-        <h2 class="section-title text-center text-4xl mb-6">Explora por Categorías</h2>
-        <div class="categories-grid grid grid-nogutter mt-6">
-            <a href="categoriaFiccion.xhtml" class="col-12 sm:col-6 md:col-4 lg:col-2 p-3"
-               style="text-decoration: none;">
-                <div class="category-card h-full">
-                    <div class="category-icon">🏰</div>
-                    <div class="category-name">Ficción</div>
+            <h:panelGroup rendered="#{empty principalBean.librosDestacados}">
+                <div class="text-center p-5">
+                    <p class="text-xl">¡Vaya! Parece que no hay libros destacados en este momento.</p>
+                    <p>Vuelve a intentarlo más tarde.</p>
                 </div>
-            </a>
-            <a href="categoriaRomance.xhtml" class="col-12 sm:col-6 md:col-4 lg:col-2 p-3"
-               style="text-decoration: none;">
-                <div class="category-card h-full">
-                    <div class="category-icon">💝</div>
-                    <div class="category-name">Romance</div>
-                </div>
-            </a>
-            <a href="categoriaMisterio.xhtml" class="col-12 sm:col-6 md:col-4 lg:col-2 p-3"
-               style="text-decoration: none;">
-                <div class="category-card h-full">
-                    <div class="category-icon">🔍</div>
-                    <div class="category-name">Misterio</div>
-                </div>
-            </a>
-            <a href="categoriaCiencia.xhtml" class="col-12 sm:col-6 md:col-4 lg:col-2 p-3"
-               style="text-decoration: none;">
-                <div class="category-card h-full">
-                    <div class="category-icon">🔬</div>
-                    <div class="category-name">Ciencia</div>
-                </div>
-            </a>
-            <a href="categoriaHistoria.xhtml" class="col-12 sm:col-6 md:col-4 lg:col-2 p-3"
-               style="text-decoration: none;">
-                <div class="category-card h-full">
-                    <div class="category-icon">🏛️</div>
-                    <div class="category-name">Historia</div>
-                </div>
-            </a>
-            <a href="categoriaInfantil.xhtml" class="col-12 sm:col-6 md:col-4 lg:col-2 p-3"
-               style="text-decoration: none;">
-                <div class="category-card h-full">
-                    <div class="category-icon">🎈</div>
-                    <div class="category-name">Infantil</div>
-                </div>
-            </a>
+            </h:panelGroup>
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="stats-section py-8">
-    <div class="container">
-        <div class="stats-grid grid text-center">
-            <div class="col-12 sm:col-6 md:col-3 p-3">
-                <div class="stat-item">
-                    <div class="stat-number">50,000+</div>
-                    <div class="stat-label">Libros Disponibles</div>
-                </div>
-            </div>
-            <div class="col-12 sm:col-6 md:col-3 p-3">
-                <div class="stat-item">
-                    <div class="stat-number">5,000+</div>
-                    <div class="stat-label">Autores</div>
-                </div>
-            </div>
-            <div class="col-12 sm:col-6 md:col-3 p-3">
-                <div class="stat-item">
-                    <div class="stat-number">100,000+</div>
-                    <div class="stat-label">Clientes Felices</div>
-                </div>
-            </div>
-            <div class="col-12 sm:col-6 md:col-3 p-3">
-                <div class="stat-item">
-                    <div class="stat-number">15+</div>
-                    <div class="stat-label">Años de Experiencia</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    <section class="categories-section py-8">
+        <!-- ... código ... -->
+    </section>
 
-<footer class="footer">
-    <div class="container">
-        <div class="footer-content grid grid-nogutter pb-6">
-            <div class="footer-section col-12 sm:col-6 md:col-3 p-3">
-                <h3>📚 KinalHub</h3>
-                <p>Tu librería online de confianza desde 2010. Descubre miles de títulos y encuentra tu próxima gran
-                    lectura.</p>
-            </div>
-            <div class="footer-section col-12 sm:col-6 md:col-3 p-3">
-                <h3>Categorías</h3>
-                <a href="categoriaFiccion.xhtml">Ficción</a>
-                <a href="categoriaRomance.xhtml">Romance</a>
-                <a href="categoriaMisterio.xhtml">Misterio</a>
-                <a href="categoriaCiencia.xhtml">Ciencia</a>
-                <a href="categoriaHistoria.xhtml">Historia</a>
-                <a href="categoriaInfantil.xhtml">Infantil</a>
-            </div>
-            <div class="footer-section col-12 sm:col-6 md:col-3 p-3">
-                <h3>Ayuda</h3>
-                <a href="contacto.xhtml">Contacto</a>
-                <a href="envios.xhtml">Envíos</a>
-                <a href="devoluciones.xhtml">Devoluciones</a>
-                <a href="faq.xhtml">Preguntas Frecuentes</a>
-                <a href="privacidad.xhtml">Política de Privacidad</a>
-            </div>
-            <div class="footer-section col-12 sm:col-6 md:col-3 p-3">
-                <h3>Síguenos</h3>
-                <a href="#">Facebook</a>
-                <a href="#">Instagram</a>
-                <a href="#">Twitter</a>
-                <a href="#">YouTube</a>
-            </div>
-        </div>
+    <section class="stats-section py-8">
+        <!-- ... código... -->
+    </section>
+
+    <footer class="footer">
+        <!-- ... código ... -->
         <div class="footer-bottom text-center">
-            <p>&copy; 2025 KinalHub. Todos los derechos reservados.</p>
+            <p>&#169; 2025 KinalHub. Todos los derechos reservados.</p>
         </div>
-    </div>
-</footer>
-</body>
+    </footer>
 
+</h:body>
 </html>
