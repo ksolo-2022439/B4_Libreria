@@ -27,7 +27,7 @@ public class LibroController implements Serializable {
     private List<Libro> libros;
     private Libro libroSeleccionado;
 
-    private static Logger logger = LoggerFactory.getLogger(LibroController.class);
+    private static final Logger logger = LoggerFactory.getLogger(LibroController.class);
 
     @PostConstruct
     public void init() {
@@ -36,44 +36,40 @@ public class LibroController implements Serializable {
 
     public void cargarDatos() {
         this.libros = this.libroService.listarLibros();
-        this.libros.forEach(libro -> logger.info(libro.toString()));
     }
 
-    // Preparar un nuevo libro
+    public Libro.Categoria[] getCategorias() {
+        return Libro.Categoria.values();
+    }
+
     public void agregarLibro() {
         this.libroSeleccionado = new Libro();
     }
 
-    // Guardar o actualizar libro
     public void guardaLibro() {
         logger.info("Libro a guardar: " + this.libroSeleccionado);
-
+        String mensaje;
         if (this.libroSeleccionado.getIdLibro() == null) {
-            Libro nuevo = this.libroService.guardarLibro(this.libroSeleccionado);
-            this.libros.add(nuevo); // Agregar a la lista para actualizar la tabla
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Libro agregado"));
+            this.libroService.guardarLibro(this.libroSeleccionado);
+            mensaje = "Libro Agregado";
         } else {
             this.libroService.guardarLibro(this.libroSeleccionado);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Libro actualizado"));
+            mensaje = "Libro Actualizado";
         }
         cargarDatos();
-
-        PrimeFaces.current().executeScript("PF('ventanaModalLibro').hide();");
-
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(mensaje));
         PrimeFaces.current().ajax().update("formulario-libros:table-libros", "formulario-libros:mensaje-emergente");
-
+        PrimeFaces.current().executeScript("PF('ventanaModalLibro').hide();");
         this.libroSeleccionado = null;
     }
 
-    // Eliminar libro
     public void eliminarLibro() {
         logger.info("Libro a eliminar: " + this.libroSeleccionado);
         this.libroService.eliminarLibro(this.libroSeleccionado);
         this.libros.remove(this.libroSeleccionado);
 
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Libro eliminado"));
-        PrimeFaces.current().ajax().update("formulario-libros:table-libros", "formulario-libros:mensaje-emergente");
-
+        PrimeFaces.current().ajax().update("formulario-libros:tabla-libros", "formulario-libros:mensaje-emergente");
         this.libroSeleccionado = null;
     }
 }

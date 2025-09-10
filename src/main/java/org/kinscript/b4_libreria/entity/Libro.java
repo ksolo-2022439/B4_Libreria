@@ -12,6 +12,10 @@ import java.math.BigDecimal; // Importar para manejar precios con precisión
 @AllArgsConstructor
 public class Libro {
 
+    public enum Categoria {
+        DRAMA, POESIA, COMEDIA, ACCION, FICCION, ROMANCE, MISTERIO, CIENCIA, HISTORIA, INFANTIL
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idLibro")
@@ -23,8 +27,12 @@ public class Libro {
     @Column(name = "autor")
     private String autor;
 
-    @Column(name = "categoria")
-    private String categoria;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "categoria", nullable = false)
+    private Categoria categoria;
+
+    @Column(name = "urlPortada")
+    private String urlPortada;
 
     @Column(name = "precio")
     private BigDecimal precio;
