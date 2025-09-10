@@ -10,6 +10,14 @@
     <title>KinalHub - Tu Librería Online</title>
     <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css"/>
     <link rel="stylesheet" href="styles/paginaPrincipal.css"/>
+    <style>
+        .book-cover-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+    </style>
 </h:head>
 
 <h:body>
@@ -41,16 +49,15 @@
     </header>
 
     <section class="hero">
-    <div class="hero-content">
-        <h1>Descubre tu próxima gran lectura</h1>
-        <p>Miles de libros esperándote. Desde bestsellers hasta joyas ocultas, encuentra tu mundo perfecto en cada
-            página.</p>
-        <div class="hero-buttons flex gap-3 justify-content-center flex-wrap animation-delay-600">
-            <a href="catalogo.xhtml" class="btn btn-hero btn-primary">Explorar Catálogo</a>
-            <a href="ofertas.xhtml" class="btn btn-hero btn-secondary">Ver Ofertas</a>
+        <div class="hero-content">
+            <h1>Descubre tu próxima gran lectura</h1>
+            <p>Miles de libros esperándote. Desde bestsellers hasta joyas ocultas, encuentra tu mundo perfecto en cada página.</p>
+            <div class="hero-buttons flex gap-3 justify-content-center flex-wrap animation-delay-600">
+                <a href="catalogo.xhtml" class="btn btn-hero btn-primary">Explorar Catálogo</a>
+                <a href="ofertas.xhtml" class="btn btn-hero btn-secondary">Ver Ofertas</a>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <section class="featured-section py-8">
         <div class="container mx-auto px-4 lg:px-6">
@@ -61,7 +68,11 @@
                     <div class="carousel">
                         <ui:repeat value="#{principalBean.librosDestacados}" var="libro">
                             <div class="book-card">
-                                <div class="book-image">📖</div>
+                                <div class="book-image">
+                                    <h:graphicImage value="#{libro.urlPortada}"
+                                                    alt="Portada del libro #{libro.titulo}"
+                                                    styleClass="book-cover-img"/>
+                                </div>
                                 <div class="book-info">
                                     <div class="book-title">#{libro.titulo}</div>
                                     <div class="book-author">#{libro.autor}</div>
