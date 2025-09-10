@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
 import lombok.Setter;
 import org.kinscript.b4_libreria.entity.Usuario;
-import org.kinscript.b4_libreria.service.UsuarioService;
+import org.kinscript.b4_libreria.service.UsuarioLoginService;
 import org.kinscript.b4_libreria.util.CookieHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,7 +20,7 @@ import org.springframework.web.context.annotation.RequestScope;
 public class LoginBean {
 
     @Autowired
-    private UsuarioService usuarioService;
+    private UsuarioLoginService usuarioLoginService;
 
     @Autowired
     private SessionBean sessionBean;
@@ -31,7 +31,7 @@ public class LoginBean {
 
     public String iniciarSesion() {
         try {
-            Usuario usuario = usuarioService.login(correoElectronico, contrasena);
+            Usuario usuario = usuarioLoginService.login(correoElectronico, contrasena);
             sessionBean.setUsuarioLogueado(usuario);
 
             String redirectPage;
@@ -46,7 +46,7 @@ public class LoginBean {
             int maxAge = 30 * 24 * 60 * 60;
 
             if (rememberMe) {
-                String token = usuarioService.createRememberMeToken(usuario);
+                String token = usuarioLoginService.createRememberMeToken(usuario);
                 CookieHelper.addCookie(response, "remember-me-token", token, maxAge);
             }
 

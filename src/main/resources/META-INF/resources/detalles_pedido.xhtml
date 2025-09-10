@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<h:html xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Registro de Detalles de Pedido</title>
+        <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css"/>
+        <link rel="stylesheet" href="https://unpkg.com/primeflex/themes/primeone-dark.css"/>
+    </h:head>
+    <h:body>
+        <div class="card">
+            <h:form id="formulario-detalles">
+                <p:growl id="mensaje-emergente" showDetails="true"/>
+                <p:menubar>
+                    <p:menuitem value="Inicio" icon="pi pi-fw pi-home" outcome="/administrador.xhtml" />
+                    <p:menuitem value="Nuevo Detalle" icon="pi pi-fw pi-plus"
+                                actionListener="#{detallePedidoController.agregarDetallePedido}"
+                                update=":formulario-modal-detalle:ventana-detalle"
+                                oncomplete="PF('ventanaModalDetalle').show();" />
+                </p:menubar>
+
+                <div class="card">
+                    <p:dataTable value="#{detallePedidoController.detallesPedido}" var="detalle" id="tabla-detalles" widgetVar="detalleTabla">
+                        <f:facet name="header">
+                            <div class="flex justify-content-center">
+                                <h3>Registro de Detalles de Pedido</h3>
+                            </div>
+                        </f:facet>
+
+                        <p:column headerText="ID Detalle">
+                            <h:outputText value="#{detalle.idDetallePedido}"/>
+                        </p:column>
+                        <p:column headerText="ID Pedido">
+                            <h:outputText value="#{detalle.pedido.idPedido}"/>
+                        </p:column>
+                        <p:column headerText="Libro">
+                            <h:outputText value="#{detalle.libro.titulo}"/>
+                        </p:column>
+                        <p:column headerText="Cantidad">
+                            <h:outputText value="#{detalle.cantidad}"/>
+                        </p:column>
+                        <p:column headerText="Precio Unitario">
+                            <h:outputText value="#{detalle.precioUnitario}">
+                                <f:convertNumber type="currency" currencySymbol="$"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column>
+                            <p:commandButton value="Editar" icon="pi pi-pencil"
+                                             update=":formulario-modal-detalle:ventana-detalle"
+                                             process="@this"
+                                             oncomplete="PF('ventanaModalDetalle').show();"
+                                             class="ui-button-primary" style="margin-right:.5rem">
+                                <f:setPropertyActionListener value="#{detalle}" target="#{detallePedidoController.detallePedidoSeleccionado}"/>
+                            </p:commandButton>
+                            <p:commandButton value="Eliminar" icon="pi pi-trash" class="ui-button-danger"
+                                             action="#{detallePedidoController.eliminarDetallePedido}"
+                                             update=":formulario-detalles:tabla-detalles, :formulario-detalles:mensaje-emergente"
+                                             process="@this">
+                                <p:confirm header="Confirmación" message="¿Estás seguro de que quieres eliminar este detalle?" icon="pi pi-exclamation-triangle"/>
+                                <f:setPropertyActionListener value="#{detalle}" target="#{detallePedidoController.detallePedidoSeleccionado}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </div>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-secondary" icon="pi pi-times"/>
+                </p:confirmDialog>
+            </h:form>
+
+            <h:form id="formulario-modal-detalle">
+                <p:dialog header="Detalle de Pedido" showEffect="fade" modal="true" widgetVar="ventanaModalDetalle" responsive="true">
+                    <p:outputPanel id="ventana-detalle" class="ui-fluid">
+                        <h:panelGroup rendered="#{not empty detallePedidoController.detallePedidoSeleccionado}">
+                            <div class="field">
+                                <p:outputLabel for="pedido">Pedido</p:outputLabel>
+                                <p:selectOneMenu id="pedido" value="#{detallePedidoController.detallePedidoSeleccionado.pedido}"
+                                                 converter="omnifaces.SelectItemsConverter" required="true">
+                                    <f:selectItem itemLabel="Seleccionar Pedido" itemValue="#{null}" noSelectionOption="true"/>
+                                    <f:selectItems value="#{detallePedidoController.pedidos}" var="p" itemLabel="Pedido ##{p.idPedido} (#{p.usuario.nombreUsuario})" itemValue="#{p}"/>
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="libro">Libro</p:outputLabel>
+                                <p:selectOneMenu id="libro" value="#{detallePedidoController.detallePedidoSeleccionado.libro}"
+                                                 converter="omnifaces.SelectItemsConverter" required="true">
+                                    <f:selectItem itemLabel="Seleccionar Libro" itemValue="#{null}" noSelectionOption="true"/>
+                                    <f:selectItems value="#{detallePedidoController.libros}" var="l" itemLabel="#{l.titulo}" itemValue="#{l}"/>
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="cantidad">Cantidad</p:outputLabel>
+                                <p:inputNumber id="cantidad" value="#{detallePedidoController.detallePedidoSeleccionado.cantidad}" required="true" decimalPlaces="0"/>
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="precio">Precio Unitario</p:outputLabel>
+                                <p:inputNumber id="precio" value="#{detallePedidoController.detallePedidoSeleccionado.precioUnitario}" required="true" symbol="$ "/>
+                            </div>
+                        </h:panelGroup>
+
+                    </p:outputPanel>
+                    <f:facet name="footer">
+                        <p:commandButton value="Guardar" icon="pi pi-check"
+                                         actionListener="#{detallePedidoController.guardarDetallePedido}"
+                                         update=":formulario-detalles:tabla-detalles :formulario-detalles:mensaje-emergente"
+                                         process="ventana-detalle @this"/>
+                    </f:facet>
+                </p:dialog>
+            </h:form>
+        </div>
+    </h:body>
+</h:html>

@@ -5,7 +5,7 @@ import jakarta.faces.context.FacesContext;
 import lombok.Getter;
 import lombok.Setter;
 import org.kinscript.b4_libreria.entity.Usuario;
-import org.kinscript.b4_libreria.service.UsuarioService;
+import org.kinscript.b4_libreria.service.UsuarioLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
@@ -17,7 +17,7 @@ import org.springframework.web.context.annotation.RequestScope;
 public class UsuarioBean {
 
     @Autowired
-    private UsuarioService usuarioService;
+    private UsuarioLoginService usuarioLoginService;
 
     private Usuario usuario = new Usuario();
 
@@ -30,7 +30,7 @@ public class UsuarioBean {
         }
 
         try {
-            usuarioService.registrarUsuario(usuario);
+            usuarioLoginService.registrarUsuario(usuario);
 
             FacesContext.getCurrentInstance().getExternalContext().getFlash().put("exito", "¡Cuenta creada exitosamente! Por favor, inicia sesión.");
             return "/iniciarSesion.xhtml?faces-redirect=true";

@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
 import lombok.Setter;
 import org.kinscript.b4_libreria.entity.Usuario;
-import org.kinscript.b4_libreria.service.UsuarioService;
+import org.kinscript.b4_libreria.service.UsuarioLoginService;
 import org.kinscript.b4_libreria.util.CookieHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,7 +22,7 @@ import java.io.Serializable;
 public class SessionBean implements Serializable {
 
     @Autowired
-    private transient UsuarioService usuarioService;
+    private transient UsuarioLoginService usuarioLoginService;
 
     private Usuario usuarioLogueado;
 
@@ -37,7 +37,7 @@ public class SessionBean implements Serializable {
 
         String rememberMeToken = CookieHelper.getCookieValue(request, "remember-me-token");
         if (rememberMeToken != null) {
-            usuarioService.deleteRememberMeToken(rememberMeToken);
+            usuarioLoginService.deleteRememberMeToken(rememberMeToken);
             CookieHelper.removeCookie(response, "remember-me-token");
         }
 

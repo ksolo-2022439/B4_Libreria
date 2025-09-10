@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<h:html xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Registro de Pedidos</title>
+        <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css"/>
+        <link rel="stylesheet" href="https://unpkg.com/primeflex/themes/primeone-dark.css"/>
+    </h:head>
+    <h:body>
+        <div class="card">
+            <h:form id="formulario-pedidos">
+                <p:growl id="mensaje-emergente" showDetails="true"/>
+                <p:menubar>
+                    <p:menuitem value="Inicio" icon="pi pi-fw pi-home" outcome="/administrador.xhtml" />
+                    <p:menuitem value="Nuevo Pedido" icon="pi pi-fw pi-plus"
+                                actionListener="#{pedidoController.agregarPedido}"
+                                update=":formulario-modal-pedido:ventana-pedido"
+                                oncomplete="PF('ventanaModalPedido').show();" />
+                </p:menubar>
+
+                <div class="card">
+                    <p:dataTable value="#{pedidoController.pedidos}" var="pedido" id="tabla-pedidos" widgetVar="pedidoTabla">
+                        <f:facet name="header">
+                            <div class="flex justify-content-center">
+                                <h3>Registro de Pedidos</h3>
+                            </div>
+                        </f:facet>
+
+                        <p:column headerText="ID Pedido">
+                            <h:outputText value="#{pedido.idPedido}"/>
+                        </p:column>
+                        <p:column headerText="Usuario (Cliente)">
+                            <h:outputText value="#{pedido.usuario.nombreUsuario}"/>
+                        </p:column>
+                        <p:column headerText="Fecha">
+                            <h:outputText value="#{pedido.fecha}"/>
+                        </p:column>
+                        <p:column headerText="Estado">
+                            <h:outputText value="#{pedido.estado}"/>
+                        </p:column>
+
+                        <p:column>
+                            <p:commandButton value="Editar" icon="pi pi-pencil"
+                                             update=":formulario-modal-pedido:ventana-pedido"
+                                             process="@this"
+                                             oncomplete="PF('ventanaModalPedido').show();"
+                                             class="ui-button-primary" style="margin-right:.5rem">
+                                <f:setPropertyActionListener value="#{pedido}" target="#{pedidoController.pedidoSeleccionado}"/>
+                            </p:commandButton>
+                            <p:commandButton value="Eliminar" icon="pi pi-trash" class="ui-button-danger"
+                                             action="#{pedidoController.eliminarPedido}"
+                                             update=":formulario-pedidos:tabla-pedidos, :formulario-pedidos:mensaje-emergente"
+                                             process="@this">
+                                <p:confirm header="Confirmación" message="¿Estás seguro de que quieres eliminar este pedido?" icon="pi pi-exclamation-triangle"/>
+                                <f:setPropertyActionListener value="#{pedido}" target="#{pedidoController.pedidoSeleccionado}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </div>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-secondary" icon="pi pi-times"/>
+                </p:confirmDialog>
+            </h:form>
+
+            <h:form id="formulario-modal-pedido">
+                <p:dialog header="Detalle del Pedido" showEffect="fade" modal="true" widgetVar="ventanaModalPedido" responsive="true">
+                    <p:outputPanel id="ventana-pedido" class="ui-fluid">
+                        <h:panelGroup rendered="#{not empty pedidoController.pedidoSeleccionado}">
+                            <div class="field">
+                                <p:outputLabel for="usuario">Usuario</p:outputLabel>
+                                <p:selectOneMenu id="usuario" value="#{pedidoController.pedidoSeleccionado.usuario}"
+                                                 converter="omnifaces.SelectItemsConverter" required="true">
+                                    <f:selectItem itemLabel="Seleccionar Usuario" itemValue="#{null}" noSelectionOption="true"/>
+                                    <f:selectItems value="#{pedidoController.usuarios}" var="u" itemLabel="#{u.idUsuario} - #{u.nombreUsuario}" itemValue="#{u}"/>
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="fecha">Fecha del Pedido</p:outputLabel>
+                                <p:calendar id="fecha" value="#{pedidoController.pedidoSeleccionado.fecha}" pattern="dd/MM/yyyy" mask="true" required="true"/>
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="estado">Estado</p:outputLabel>
+                                <p:selectOneMenu id="estado" value="#{pedidoController.pedidoSeleccionado.estado}" required="true">
+                                    <f:selectItem itemLabel="Seleccionar Estado" itemValue="#{null}" noSelectionOption="true"/>
+                                    <f:selectItems value="#{pedidoController.estados}" var="est" itemLabel="#{est}" itemValue="#{est}"/>
+                                </p:selectOneMenu>
+                            </div>
+                        </h:panelGroup>
+
+                    </p:outputPanel>
+                    <f:facet name="footer">
+                        <p:commandButton value="Guardar" icon="pi pi-check"
+                                         actionListener="#{pedidoController.guardarPedido}"
+                                         update=":formulario-pedidos:tabla-pedidos :formulario-pedidos:mensaje-emergente"
+                                         process="ventana-pedido @this"/>
+                    </f:facet>
+                </p:dialog>
+            </h:form>
+        </div>
+    </h:body>
+</h:html>

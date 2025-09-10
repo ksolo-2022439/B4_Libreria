@@ -4,7 +4,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.kinscript.b4_libreria.bean.SessionBean;
 import org.kinscript.b4_libreria.entity.Usuario;
-import org.kinscript.b4_libreria.service.UsuarioService;
+import org.kinscript.b4_libreria.service.UsuarioLoginService;
 import org.kinscript.b4_libreria.util.CookieHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,7 +16,7 @@ import java.util.Optional;
 public class RememberMeFilter implements Filter {
 
     @Autowired
-    private UsuarioService usuarioService;
+    private UsuarioLoginService usuarioLoginService;
 
     @Autowired
     private SessionBean sessionBean;
@@ -30,7 +30,7 @@ public class RememberMeFilter implements Filter {
             String token = CookieHelper.getCookieValue(httpRequest, "remember-me-token");
 
             if (token != null && !token.isEmpty()) {
-                Optional<Usuario> userOpt = usuarioService.findUserByToken(token);
+                Optional<Usuario> userOpt = usuarioLoginService.findUserByToken(token);
                 userOpt.ifPresent(sessionBean::setUsuarioLogueado);
             }
         }
