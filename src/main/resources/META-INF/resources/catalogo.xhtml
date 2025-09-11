@@ -2,22 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
 <h:head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>KinalHub - Tu Librería Online</title>
+    <title>Catálogo de Libros - KinalHub</title>
     <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css"/>
+    <link rel="stylesheet" href="styles/catalogo.css"/>
     <link rel="stylesheet" href="styles/paginaPrincipal.css"/>
-    <style>
-        .book-cover-img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-    </style>
 </h:head>
 
 <h:body>
@@ -25,7 +19,7 @@
         <div class="floating-book">📚</div>
         <div class="floating-book">📖</div>
     </div>
-
+    
     <header class="header">
         <div class="nav-container flex justify-content-between align-items-center">
             <a href="paginaPrincipal.xhtml" class="logo" style="text-decoration: none; color: white;">📚 KinalHub</a>
@@ -48,31 +42,16 @@
         </div>
     </header>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Descubre tu próxima gran lectura</h1>
-            <p>Miles de libros esperándote. Desde bestsellers hasta joyas ocultas, encuentra tu mundo perfecto en cada página.</p>
-            <div class="hero-buttons flex gap-3 justify-content-center flex-wrap animation-delay-600">
-            <h:link outcome="catalogo" value="Explorar Catálogo" styleClass="btn btn-hero btn-primary"/>
-            <a href="ofertas.xhtml" class="btn btn-hero btn-secondary">Ver Ofertas</a>
-            </div>
-        </div>
-    </section>
-
-    <section class="featured-section py-8">
+    <section class="catalogo-section">
         <div class="container mx-auto px-4 lg:px-6">
-            <h2 class="section-title text-center text-4xl mb-6">Libros Destacados</h2>
+            <h1 class="section-title text-center text-5xl mb-8">Catálogo de Libros</h1>
 
-            <h:panelGroup rendered="#{not empty principalBean.librosDestacados}">
-                <div class="carousel-container">
-                    <div class="carousel">
-                        <ui:repeat value="#{principalBean.librosDestacados}" var="libro">
+            <h:panelGroup rendered="#{not empty libroController.libros}">
+                <div class="grid grid-nogutter">
+                    <ui:repeat value="#{libroController.libros}" var="libro" varStatus="loop">
+                        <div class="col-12 sm:col-6 md:col-4 lg:col-3 p-3">
                             <div class="book-card">
-                                <div class="book-image">
-                                    <h:graphicImage value="#{libro.urlPortada}"
-                                                    alt="Portada del libro #{libro.titulo}"
-                                                    styleClass="book-cover-img"/>
-                                </div>
+                                <h:graphicImage value="#{libro.urlPortada}" alt="Portada de #{libro.titulo}" styleClass="book-cover"/>
                                 <div class="book-info">
                                     <div class="book-title">#{libro.titulo}</div>
                                     <div class="book-author">#{libro.autor}</div>
@@ -81,36 +60,30 @@
                                             <f:convertNumber type="currency" currencySymbol="Q"/>
                                         </h:outputText>
                                     </div>
+                                    <h:form>
+                                        <h:commandButton value="Añadir al Carrito" 
+                                            actionListener="#{catalogoBean.agregarAlCarrito(libro)}"
+                                            styleClass="p-button-success mt-3 add-to-cart-btn" />
+                                    </h:form>
                                 </div>
                             </div>
-                        </ui:repeat>
-                    </div>
+                        </div>
+                    </ui:repeat>
                 </div>
             </h:panelGroup>
 
-            <h:panelGroup rendered="#{empty principalBean.librosDestacados}">
-                <div class="text-center p-5">
-                    <p class="text-xl">¡Vaya! Parece que no hay libros destacados en este momento.</p>
-                    <p>Vuelve a intentarlo más tarde.</p>
+            <h:panelGroup rendered="#{empty libroController.libros}">
+                <div class="no-books-message">
+                    <p class="text-xl">¡Vaya! Parece que no hay libros disponibles en este momento.</p>
                 </div>
             </h:panelGroup>
         </div>
     </section>
 
-    <section class="categories-section py-8">
-        <!-- ... código ... -->
-    </section>
-
-    <section class="stats-section py-8">
-        <!-- ... código... -->
-    </section>
-
     <footer class="footer">
-        <!-- ... código ... -->
         <div class="footer-bottom text-center">
             <p>&#169; 2025 KinalHub. Todos los derechos reservados.</p>
         </div>
     </footer>
-
 </h:body>
 </html>
