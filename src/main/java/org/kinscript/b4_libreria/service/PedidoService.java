@@ -1,6 +1,7 @@
 package org.kinscript.b4_libreria.service;
 
 import org.kinscript.b4_libreria.entity.Pedido;
+import org.kinscript.b4_libreria.entity.Usuario;
 import org.kinscript.b4_libreria.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,5 +32,10 @@ public class PedidoService implements iPedidoService {
     @Override
     public void eliminarPedido(Pedido pedido) {
         pedidoRepository.delete(pedido);
+    }
+
+    @Override
+    public List<Pedido> listarPedidosPorUsuario(Usuario usuario) {
+        return pedidoRepository.findByUsuarioOrderByFechaDesc(usuario);
     }
 }

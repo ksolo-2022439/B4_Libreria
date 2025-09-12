@@ -1,272 +1,142 @@
 <!DOCTYPE html>
-<html lang="es">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<h:head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>KinalHub - Historial de Pedidos</title>
-    <link rel="stylesheet" href="styles/historialPedidos.css" />
-    <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css"/>
+    <!-- Asegúrate de que la ruta al CSS sea correcta -->
+    <h:outputStylesheet name="styles/historialPedidos.css"/>
+    <h:outputStylesheet name="primeflex/primeflex.css" library="primefaces"/>
+</h:head>
 
-</head>
-
-<body>
-<header class="header">
-    <div class="nav-container flex justify-content-between align-items-center">
-        <a href="paginaPrincipal.xhtml" class="logo">📚 KinalHub</a>
-        <div class="nav-buttons">
-            <a href="#" class="btn btn-back">← Volver al Catalogo</a>
+<h:body>
+    <header class="header">
+        <div class="nav-container flex justify-content-between align-items-center">
+            <h:link outcome="/paginaPrincipal" styleClass="logo">📚 KinalHub</h:link>
+            <div class="nav-buttons">
+                <h:link outcome="/paginaPrincipal" styleClass="btn btn-back">← Volver al Catalogo</h:link>
+            </div>
         </div>
-    </div>
-</header>
+    </header>
 
-<div class="history-container">
-    <h1 class="history-title">Historial de Pedidos</h1>
-    <p class="history-subtitle">Aquí puedes ver todos tus pedidos anteriores y realizar seguimiento</p>
+    <div class="history-container">
+        <h1 class="history-title">Historial de Pedidos</h1>
+        <p class="history-subtitle">Aquí puedes ver todos tus pedidos anteriores y realizar seguimiento</p>
 
-    <div class="filter-section">
-        <div class="filter-row">
-            <div class="filter-group">
-                <label class="filter-label">Estado del Pedido</label>
-                <select class="filter-select">
-                    <option value="">Todos los estados</option>
-                    <option value="completed">Completado</option>
-                    <option value="processing">Procesando</option>
-                    <option value="shipped">Enviado</option>
-                    <option value="cancelled">Cancelado</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label class="filter-label">Desde</label>
-                <input type="date" class="filter-input"/>
-            </div>
-            <div class="filter-group">
-                <label class="filter-label">Hasta</label>
-                <input type="date" class="filter-input"/>
-            </div>
-            <div class="filter-group">
-                <label class="filter-label">Buscar</label>
-                <input type="text" class="filter-input" placeholder="Número de pedido o libro..."/>
-            </div>
-            <button class="btn-filter">Filtrar</button>
-        </div>
-    </div>
-
-    <!-- Ejemplo de pedidos -->
-    <div class="order-card">
-        <div class="order-header">
-            <div class="order-info">
-                <div class="order-number">Pedido #KH-2025-001234</div>
-                <div class="order-date">Realizado el 28 de enero, 2025</div>
-            </div>
-            <div class="order-status status-completed">Completado</div>
-            <div class="order-total">Q856.80</div>
-        </div>
-        <div class="order-body">
-            <div class="shipping-info">
-                <div class="shipping-title">📦 Información de Envío</div>
-                <div class="shipping-details">
-                    Entregado el 2 de febrero, 2025<br/>
-                    Dirección: Zona 10, Ciudad de Guatemala<br/>
-                    Método: Envío Estándar
-                </div>
-            </div>
-
-            <div class="order-items">
-                <div class="order-item">
-                    <div class="item-image">📖</div>
-                    <div class="item-details">
-                        <div class="item-title">El Principito</div>
-                        <div class="item-author">Antoine de Saint-Exupéry</div>
-                        <div class="item-quantity">Cantidad: 2</div>
+        <h:form id="form-filtros">
+            <div class="filter-section">
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label class="filter-label">Estado del Pedido</label>
+                        <p:selectOneMenu value="#{historialPedidosBean.filtroEstado}" styleClass="filter-select">
+                            <f:selectItem itemLabel="Todos los estados" itemValue="#{null}"/>
+                            <f:selectItems value="#{historialPedidosBean.estados}" var="estado"
+                                           itemLabel="#{estado.toString().substring(0,1).toUpperCase()}#{estado.toString().substring(1).toLowerCase()}"
+                                           itemValue="#{estado}"/>
+                        </p:selectOneMenu>
                     </div>
-                    <div class="item-price">Q60.00</div>
-                </div>
-                <div class="order-item">
-                    <div class="item-image">📚</div>
-                    <div class="item-details">
-                        <div class="item-title">Cien Años de Soledad</div>
-                        <div class="item-author">Gabriel García Márquez</div>
-                        <div class="item-quantity">Cantidad: 1</div>
+                    <div class="filter-group">
+                        <label class="filter-label">Desde</label>
+                        <p:datePicker value="#{historialPedidosBean.filtroDesde}" styleClass="filter-input" showIcon="true" monthNavigator="true" yearNavigator="true"/>
                     </div>
-                    <div class="item-price">Q200.00</div>
-                </div>
-                <div class="order-item">
-                    <div class="item-image">📕</div>
-                    <div class="item-details">
-                        <div class="item-title">1984</div>
-                        <div class="item-author">George Orwell</div>
-                        <div class="item-quantity">Cantidad: 3</div>
+                    <div class="filter-group">
+                        <label class="filter-label">Hasta</label>
+                        <p:datePicker value="#{historialPedidosBean.filtroHasta}" styleClass="filter-input" showIcon="true" monthNavigator="true" yearNavigator="true"/>
                     </div>
-                    <div class="item-price">Q180.00</div>
+                    <div class="filter-group">
+                        <label class="filter-label">Buscar</label>
+                        <p:inputText value="#{historialPedidosBean.filtroBusqueda}" styleClass="filter-input"
+                                     placeholder="Número de pedido o libro..."/>
+                    </div>
+                    <p:commandButton value="Filtrar" actionListener="#{historialPedidosBean.aplicarFiltros}"
+                                     update="panel-pedidos" styleClass="btn-filter"/>
                 </div>
             </div>
+        </h:form>
 
-            <div class="order-summary">
-                <div class="summary-row">
-                    <span>Subtotal:</span>
-                    <span>Q740.00</span>
-                </div>
-                <div class="summary-row">
-                    <span>Envío:</span>
-                    <span>Q25.00</span>
-                </div>
-                <div class="summary-row">
-                    <span>IVA:</span>
-                    <span>Q91.80</span>
-                </div>
-                <div class="summary-row">
-                    <span>Total:</span>
-                    <span>Q856.80</span>
-                </div>
-            </div>
+        <h:panelGroup id="panel-pedidos" layout="block">
+            <!-- Caso: Historial vacío -->
+            <h:panelGroup styleClass="empty-history" rendered="#{empty historialPedidosBean.pedidosFiltrados}">
+                <div class="empty-history-icon">📋</div>
+                <h3>No tienes pedidos aún</h3>
+                <p>Cuando realices tu primera compra, aparecerá aquí para que puedas hacer seguimiento.</p>
+                <h:link outcome="/paginaPrincipal" styleClass="btn btn-primary" style="display: inline-block; margin-top: 1rem;">
+                    Explorar Catálogo
+                </h:link>
+            </h:panelGroup>
 
-            <div class="order-actions">
-                <a href="#" class="btn btn-primary">Descargar Factura</a>
-                <a href="carrito.xhtml" class="btn btn-secondary">Volver a Comprar</a>
-                <a href="carrito.xhtml" class="btn btn-outline">Ver Detalles</a>
-            </div>
-        </div>
+            <!-- Caso: Hay pedidos, se iteran -->
+            <ui:repeat value="#{historialPedidosBean.pedidosFiltrados}" var="pedido" rendered="#{not empty historialPedidosBean.pedidosFiltrados}">
+                <div class="order-card">
+                    <div class="order-header">
+                        <div class="order-info">
+                            <div class="order-number">Pedido #KH-2025-#{pedido.idPedido}</div>
+                            <div class="order-date">
+                                Realizado el <h:outputText value="#{pedido.fecha}">
+                                <f:convertDateTime pattern="dd 'de' MMMM, yyyy" locale="es"/>
+                            </h:outputText>
+                            </div>
+                        </div>
+                        <div class="order-status status-#{pedido.estado.toString().toLowerCase()}">
+                            #{pedido.estado.toString().substring(0,1).toUpperCase()}#{pedido.estado.toString().substring(1).toLowerCase()}
+                        </div>
+                        <div class="order-total">
+                            <h:outputText value="#{pedido.total}">
+                                <f:convertNumber type="currency" currencySymbol="S/ " locale="es-PE"/>
+                            </h:outputText>
+                        </div>
+                    </div>
+                    <div class="order-body">
+                        <div class="shipping-info">
+                            <div class="shipping-title">📦 Información de Envío</div>
+                            <div class="shipping-details">
+                                Dirección de entrega registrada en tu perfil.<br/>
+                                Método: Envío Estándar
+                            </div>
+                        </div>
+
+                        <div class="order-items">
+                            <ui:repeat value="#{pedido.detalles}" var="detalle">
+                                <div class="order-item">
+                                    <div class="item-image">📚</div>
+                                    <div class="item-details">
+                                        <div class="item-title">#{detalle.libro.titulo}</div>
+                                        <div class="item-author">#{detalle.libro.autor}</div>
+                                        <div class="item-quantity">Cantidad: #{detalle.cantidad}</div>
+                                    </div>
+                                    <div class="item-price">
+                                        <h:outputText value="#{detalle.precioUnitario}">
+                                            <f:convertNumber type="currency" currencySymbol="S/ " locale="es-PE"/>
+                                        </h:outputText>
+                                    </div>
+                                </div>
+                            </ui:repeat>
+                        </div>
+
+                        <div class="order-summary">
+                            <div class="summary-row">
+                                <span>Total:</span>
+                                <span>
+                                     <h:outputText value="#{pedido.total}">
+                                        <f:convertNumber type="currency" currencySymbol="S/ " locale="es-PE"/>
+                                    </h:outputText>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="order-actions">
+                            <p:button value="Descargar Factura" styleClass="btn btn-primary" disabled="true"/>
+                            <p:button value="Ver Detalles" styleClass="btn btn-outline" disabled="true"/>
+                        </div>
+                    </div>
+                </div>
+            </ui:repeat>
+        </h:panelGroup>
     </div>
-
-    <div class="order-card">
-        <div class="order-header">
-            <div class="order-info">
-                <div class="order-number">Pedido #KH-2025-001156</div>
-                <div class="order-date">Realizado el 15 de enero, 2025</div>
-            </div>
-            <div class="order-status status-shipped">Enviado</div>
-            <div class="order-total">Q425.50</div>
-        </div>
-        <div class="order-body">
-            <div class="shipping-info">
-                <div class="shipping-title">🚚 Información de Envío</div>
-                <div class="shipping-details">
-                    En tránsito - Llegada estimada: 5 de febrero, 2025<br/>
-                    Dirección: Antigua Guatemala, Sacatepéquez<br/>
-                    Método: Envío Express<br/>
-                    Código de seguimiento: GT789456123
-                </div>
-            </div>
-
-            <div class="order-items">
-                <div class="order-item">
-                    <div class="item-image">📘</div>
-                    <div class="item-details">
-                        <div class="item-title">Don Quijote de la Mancha</div>
-                        <div class="item-author">Miguel de Cervantes</div>
-                        <div class="item-quantity">Cantidad: 1</div>
-                    </div>
-                    <div class="item-price">Q260.00</div>
-                </div>
-                <div class="order-item">
-                    <div class="item-image">📗</div>
-                    <div class="item-details">
-                        <div class="item-title">Orgullo y Prejuicio</div>
-                        <div class="item-author">Jane Austen</div>
-                        <div class="item-quantity">Cantidad: 1</div>
-                    </div>
-                    <div class="item-price">Q120.00</div>
-                </div>
-            </div>
-
-            <div class="order-summary">
-                <div class="summary-row">
-                    <span>Subtotal:</span>
-                    <span>Q380.00</span>
-                </div>
-                <div class="summary-row">
-                    <span>Envío:</span>
-                    <span>Q50.00</span>
-                </div>
-                <div class="summary-row">
-                    <span>IVA:</span>
-                    <span>-Q4.50</span>
-                </div>
-                <div class="summary-row">
-                    <span>Total:</span>
-                    <span>Q425.50</span>
-                </div>
-            </div>
-
-            <div class="order-actions">
-                <a  class="btn btn-primary">Rastrear Envío</a>
-                <a  class="btn btn-outline">Cancelar Pedido</a>
-                <a href="carrito.xhtml" class="btn btn-outline">Ver Detalles</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="order-card">
-        <div class="order-header">
-            <div class="order-info">
-                <div class="order-number">Pedido #KH-2024-009876</div>
-                <div class="order-date">Realizado el 20 de diciembre, 2024</div>
-            </div>
-            <div class="order-status status-processing">Procesando</div>
-            <div class="order-total">Q195.00</div>
-        </div>
-        <div class="order-body">
-            <div class="shipping-info">
-                <div class="shipping-title">⏳ Información de Envío</div>
-                <div class="shipping-details">
-                    Tu pedido está siendo preparado<br/>
-                    Dirección: Quetzaltenango, Guatemala<br/>
-                    Método: Recoger en Tienda<br/>
-                    Te notificaremos cuando esté listo
-                </div>
-            </div>
-
-            <div class="order-items">
-                <div class="order-item">
-                    <div class="item-image">📙</div>
-                    <div class="item-details">
-                        <div class="item-title">El Alquimista</div>
-                        <div class="item-author">Paulo Coelho</div>
-                        <div class="item-quantity">Cantidad: 2</div>
-                    </div>
-                    <div class="item-price">Q150.00</div>
-                </div>
-            </div>
-
-            <div class="order-summary">
-                <div class="summary-row">
-                    <span>Subtotal:</span>
-                    <span>Q150.00</span>
-                </div>
-                <div class="summary-row">
-                    <span>Envío:</span>
-                    <span>Q0.00</span>
-                </div>
-                <div class="summary-row">
-                    <span>IVA:</span>
-                    <span>Q45.00</span>
-                </div>
-                <div class="summary-row">
-                    <span>Total:</span>
-                    <span>Q195.00</span>
-                </div>
-            </div>
-
-            <div class="order-actions">
-                <a class="btn btn-primary">Cancelar Pedido</a>
-                <a href="carrito.xhtml" class="btn btn-outline">Ver Detalles</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Ejemplo de historial vacío -->
-    <!--
-    <div class="empty-history">
-        <div class="empty-history-icon">📋</div>
-        <h3>No tienes pedidos aún</h3>
-        <p>Cuando realices tu primera compra, aparecerá aquí para que puedas hacer seguimiento.</p>
-        <a href="catalogo.html" class="btn btn-primary" style="display: inline-block; margin-top: 1rem;">
-            Explorar Catálogo
-        </a>
-    </div>
-    -->
-</div>
-</body>
-
+</h:body>
 </html>
